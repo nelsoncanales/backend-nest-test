@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment{
+        NPM_CONFIG_CACHE= "${WORKSPACE}/.npm"
+    }
+
     stages{
         stage ("Paso 1 del stage Tarea Final") {
             steps {
@@ -15,7 +19,7 @@ pipeline {
                     reuseNode true
                 }
             }
-            stages {
+        stages {
                 stage("instalacion de dependencias"){
                     steps {
                         sh 'npm ci'
@@ -29,5 +33,7 @@ pipeline {
                 sh 'echo "Paso Final del stage Tarea Final"'
             }
         }
+
     }
+
 }
