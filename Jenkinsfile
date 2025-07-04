@@ -3,6 +3,9 @@ pipeline {
 
     environment{
         NPM_CONFIG_CACHE= "${WORKSPACE}/.npm"
+        dockerImagePrefix = "us-west1-docker.pkg.dev/lab-agibiz/docker-repository"
+        registry = "https://us-west1-docker.pkg.dev"
+        registryCredentials = 'gcp-registrynco'
     }
 
     stages{
@@ -33,6 +36,18 @@ pipeline {
                 stage("construir"){
                 steps {
                         sh 'npm run build'
+                    }
+                }
+            }
+        }
+
+        stage ("DOCKER"){
+            steps {
+                script {
+                    docker.withRegistry("${registry}", registryCredentials ){
+                        sh "docker build -t backend-nest-test-ncanales ."
+                        sh "docker tag backend-nest-test-ncanales ${dockerImagePrefix}/backend-nest-test-ncanales"
+                        sh "docker push ${dockerImagePrefix}/backend-nest-test-ncanales"
                     }
                 }
             }
