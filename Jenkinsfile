@@ -19,22 +19,22 @@ pipeline {
                     reuseNode true
                 }
             }
-        stages {
-            stage("instalacion de dependencias"){
-                steps {
+            stages {
+                stage("instalacion de dependencias"){
+                    steps {
                         sh 'npm ci'
                     }
-                }
-            }
-            stage("ejecucion de pruebas"){
+                }            
+                stage("ejecucion de pruebas"){
                 steps {
                         sh 'npm run test:cov'
                     }
-            }
-            stage("construccion de la aplicacion"){
+                }
+                stage("construccion de la aplicacion"){
                 steps {
                         sh 'npm run build'
                     }
+                }
             }
         }
 
