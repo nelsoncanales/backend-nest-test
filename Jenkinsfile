@@ -20,17 +20,27 @@ pipeline {
                 }
             }
         stages {
-                stage("instalacion de dependencias"){
-                    steps {
+            stage("instalacion de dependencias"){
+                steps {
                         sh 'npm ci'
                     }
                 }
             }
+            stage("ejecucion de pruebas"){
+                steps {
+                        sh 'npm run test:cov'
+                    }
+            }
+            stage("construccion de la aplicacion"){
+                steps {
+                        sh 'npm run build'
+                    }
+            }
         }
 
-        stage ("Paso 2 ") {
+        stage ("Paso N ") {
             steps {
-                sh 'echo "Paso Final del stage Tarea Final"'
+                sh 'echo "Paso Final del stage N Tarea Final"'
             }
         }
 
