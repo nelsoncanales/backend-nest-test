@@ -12,7 +12,7 @@ pipeline {
             }
         }
 
-        stage ("proceso de build y test") {
+        stage ("Paso 2 Tarea Final Instalar, probar y construir") {
             agent {
                 docker {
                     image 'node:22'
@@ -20,17 +20,17 @@ pipeline {
                 }
             }
             stages {
-                stage("instalacion de dependencias"){
+                stage("dependencias"){
                     steps {
                         sh 'npm ci'
                     }
                 }            
-                stage("ejecucion de pruebas"){
+                stage("Test"){
                 steps {
                         sh 'npm run test:cov'
                     }
                 }
-                stage("construccion de la aplicacion"){
+                stage("construir"){
                 steps {
                         sh 'npm run build'
                     }
@@ -38,7 +38,7 @@ pipeline {
             }
         }
 
-        stage ("Paso N ") {
+        stage ("Paso Final ") {
             steps {
                 sh 'echo "Paso Final del stage N Tarea Final"'
             }
