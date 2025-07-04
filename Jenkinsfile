@@ -48,6 +48,8 @@ pipeline {
                         sh "docker build -t backend-nest-test-ncanales ."
                         sh "docker tag backend-nest-test-ncanales ${dockerImagePrefix}/backend-nest-test-ncanales:${BUILD_NUMBER}"
                         sh "docker push ${dockerImagePrefix}/backend-nest-test-ncanales:${BUILD_NUMBER}"
+                        sh "docker tag backend-nest-test-ncanales ${dockerImagePrefix}/backend-nest-test-ncanales"
+                        sh "docker push ${dockerImagePrefix}/backend-nest-test-ncanales"
                     }
                 }
             }
