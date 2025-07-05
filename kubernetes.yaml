@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: lab-test-ncanales
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-nest-test-ncanales
+  namespace: lab-test-ncanales
+  labels:
+    app: backend-nest-test-ncanales
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-nest-test-ncanales
+  template:
+    metadata:
+      labels:
+        app: backend-nest-test-ncanales
+    spec:
+      containers:
+      - name: backend-nest-test-ncanales
+        image: us-west1-docker.pkg.dev/lab-agibiz/docker-repository/backend-nest-test-ncanales
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred-test-nacanales
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-nest-test-ncanales-svc
+  namespace: lab-test-ncanales
+  labels:
+    app: backend-nest-test-ncanales-svc
+spec:
+  selector:
+    app: backend-nest-test-ncanales
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4000

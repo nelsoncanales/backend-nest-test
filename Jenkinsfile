@@ -55,6 +55,18 @@ pipeline {
             }
         }
 
+        stage ("KUBERNETES"){
+            agent{
+                docker{
+                    image 'alpine/k8s:1.30.2'
+                    reuseNode true
+                }
+            }
+            steps {
+                withKubeConfig([credencials])
+            }
+        }
+
         stage ("Paso Final ") {
             steps {
                 sh 'echo "Paso Final del stage N Tarea Final"'
