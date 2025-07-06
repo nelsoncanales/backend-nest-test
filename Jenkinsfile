@@ -63,7 +63,9 @@ pipeline {
                 }
             }
             steps {
-                withKubeConfig([credencials])
+                withKubeConfig([credentialsId: 'gcp-kubeconfig']){
+                    sh "kubectl -n lab-test-ncanales set image deployments/backend-nest-test-ncanales backend-nest-test-ncanales=${dockerImagePrefix}/backend-nest-test-ncanales:${BUILD_NUMBER}"
+                }
             }
         }
 

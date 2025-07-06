@@ -41,3 +41,22 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 4000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-backend-nest-test-ncanales
+  name: lab-test-ncanales
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ncanales-test.devops.cl
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: backend-nest-test-ncanales-svc
+            port:
+              number: 80
